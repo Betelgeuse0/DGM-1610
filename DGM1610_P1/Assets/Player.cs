@@ -4,33 +4,39 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public Rigidbody rb;
+    public float force = 10.0f;
+
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            Debug.Log("up");
+            rb.AddForce(new Vector3(force, 0, 0), ForceMode.Force);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.A))
         {
-
-            Debug.Log("left");
+            rb.AddForce(new Vector3(0, 0, force), ForceMode.Force);
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.D))
         {
-
-            Debug.Log("right");
+            rb.AddForce(new Vector3(0, 0, -force), ForceMode.Force);
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.S))
         {
+            rb.AddForce(new Vector3(-force, 0, 0), ForceMode.Force);
+        }
 
-            Debug.Log("down");
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(new Vector3(0, force, 0), ForceMode.Force);
         }
     }
 }
