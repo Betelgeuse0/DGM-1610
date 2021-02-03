@@ -15,31 +15,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Vector3 rvel = rb.velocity;
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
 
-        if (rvel.x < max_speed && Input.GetKey(KeyCode.W))
-        {
-            rb.AddForce(new Vector3(force, 0, 0), ForceMode.Force);
-        }
-
-        if (rvel.z < max_speed && Input.GetKey(KeyCode.A))
-        {
-            rb.AddForce(new Vector3(0, 0, force), ForceMode.Force);
-        }
-
-        if (rvel.z > -max_speed && Input.GetKey(KeyCode.D))
-        {
-            rb.AddForce(new Vector3(0, 0, -force), ForceMode.Force);
-        }
-
-        if (rvel.x > -max_speed && Input.GetKey(KeyCode.S))
-        {
-            rb.AddForce(new Vector3(-force, 0, 0), ForceMode.Force);
-        }
-
-        if (rvel.y < max_speed && Input.GetKey(KeyCode.Space))
-        {
-            rb.AddForce(new Vector3(0, force, 0), ForceMode.Force);
-        }
+        if (rb.velocity.magnitude < max_speed)
+            rb.AddForce(new Vector3(force * v, 0, -force * h));
     }
 }
