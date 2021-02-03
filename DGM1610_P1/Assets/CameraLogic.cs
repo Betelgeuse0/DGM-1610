@@ -13,13 +13,8 @@ public class CameraLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //transform.LookAt(transform.parent);
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            //Quaternion rot = transform.rotation;
-            //transform.rotation.SetFromToRotation(transform.position, transform.position + new Vector3(rotationSpeed, 0, 0));
-            //Vector3 newRot = transform.rotation + new Quaternion(rotationSpeed, 0, 0, 0);
-            //transform.rotation.Set(newRot);
-        }
+            Vector3 rotation = transform.eulerAngles;
+            rotation.x += Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
+            transform.eulerAngles = rotation;
     }
 }
