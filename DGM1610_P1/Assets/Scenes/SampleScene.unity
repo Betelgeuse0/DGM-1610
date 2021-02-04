@@ -155,8 +155,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  force: 5
-  max_speed: 2
+  walkForce: 10
+  jumpForce: 100
+  maxSpeed: 2
   rotationSpeed: 50
 --- !u!65 &296356438
 BoxCollider:
@@ -450,8 +451,8 @@ GameObject:
   - component: {fileID: 1472365945}
   - component: {fileID: 1472365944}
   m_Layer: 0
-  m_Name: Cube (1)
-  m_TagString: Untagged
+  m_Name: floor
+  m_TagString: block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
