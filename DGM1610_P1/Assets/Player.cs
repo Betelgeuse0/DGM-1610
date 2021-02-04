@@ -19,29 +19,38 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        //movement logic
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
         if (rb.velocity.magnitude < maxSpeed)
             rb.AddForce(new Vector3(walkForce * v, 0, -walkForce * h));
 
-        if (grounded && Input.GetKeyDown(KeyCode.Space)) 
+        //jumping logic
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, (GetComponent<BoxCollider>().size.y / 2.0f) + 0.01f))
+            if (Input.GetKeyDown(KeyCode.Space))
+                rb.AddForce(new Vector3(0, jumpForce, 0));
+
+        /*if (grounded && Input.GetKeyDown(KeyCode.Space)) 
         {
-            grounded = false;
             rb.AddForce(new Vector3(0, jumpForce, 0));
-        }
+            grounded = false;
+        }*/
         
         Vector3 rotation = transform.eulerAngles;
         //rotation.x -= Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime;
         rotation.y += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
         transform.eulerAngles = rotation;
+
     }
 
-    void OnCollisionEnter(Collision coll)
+    /*void OnCollisionEnter(Collision coll)
     {
-        if (coll.gameObject.tag == "block")
+        if (coll.gameObject.tag == "block" && coll.gameObject.transform.position.y < transform.position.y)
         {
             grounded = true;
         }
-    }
+    }*/
+
 }
