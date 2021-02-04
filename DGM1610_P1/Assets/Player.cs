@@ -22,9 +22,20 @@ public class Player : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        if (rb.velocity.magnitude < maxSpeed)
-            rb.AddForce(new Vector3(walkForce * v, 0, -walkForce * h));
+        /*if ((moveVel + rbVel).magnitude < maxSpeed)
+            rb.AddForce(new Vector3(walkForce * v, 0, -walkForce * h));*/
 
+
+        if (Mathf.Abs(rb.velocity.x) < maxSpeed || Mathf.Sign(h) != Mathf.Sign(rb.velocity.x))
+        {
+            rb.AddForce(new Vector3(0, 0, -walkForce * h));
+            print(h + " " + rb.velocity.x);
+        }
+
+        if (Mathf.Abs(rb.velocity.y) < maxSpeed || Mathf.Sign(v) != Mathf.Sign(rb.velocity.y))
+        {
+            rb.AddForce(new Vector3(walkForce * v, 0, 0));
+        }
         //jumping logic
         RaycastHit hit;
 

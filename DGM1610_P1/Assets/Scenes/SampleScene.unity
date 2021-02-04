@@ -156,7 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   walkForce: 10
-  jumpForce: 100
+  jumpForce: 500
   maxSpeed: 2
   rotationSpeed: 50
 --- !u!65 &296356438
