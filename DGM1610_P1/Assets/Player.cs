@@ -22,17 +22,15 @@ public class Player : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        Vector2 rbVel2D = new Vector2(rb.velocity.x, rb.velocity.z);
-        //if (rbVel2D.magnitude < maxSpeed)
-           // rb.AddForce(new Vector3(walkForce * v, 0, -walkForce * h));
-
-        if ((v > 0 && rb.velocity.x < maxSpeed) || (v < 0 && rb.velocity.x > -maxSpeed))
+        if ((v > 0 && rb.velocity.x < maxSpeed) || (v < 0 && rb.velocity.x > -maxSpeed)) 
+        {
             rb.AddForce(new Vector3(walkForce * v, 0, 0));
+        }
         
-        if ((h > 0 && rb.velocity.z < maxSpeed) || (h < 0 && rb.velocity.z > -maxSpeed))
+        if ((h < 0 && rb.velocity.z < maxSpeed) || (h > 0 && rb.velocity.z > -maxSpeed)) 
+        {
             rb.AddForce(new Vector3(0, 0, -walkForce * h));
-
-
+        }
 
         //jumping logic
         RaycastHit hit;
