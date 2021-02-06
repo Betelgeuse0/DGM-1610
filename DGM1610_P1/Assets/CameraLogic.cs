@@ -5,15 +5,15 @@ using UnityEngine;
 public class CameraLogic : MonoBehaviour
 {
     // Start is called before the first frame update
-    private GameObject player;
+    private GameObject playerObj;
     private Player playerScript;
 
     void Start()
     {
-        player = transform.parent.gameObject;
+        playerObj = transform.parent.gameObject;
         playerScript = transform.parent.gameObject.GetComponent<Player>();
         Cursor.lockState = CursorLockMode.Locked;
-        transform.LookAt(player.transform);
+        transform.LookAt(playerObj.transform);
     }
 
     // Update is called once per frame
