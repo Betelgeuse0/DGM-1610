@@ -11,13 +11,14 @@ public class Player : MonoBehaviour
     public float maxAirSpeed = 1.0f;
     public float rotationSpeed = 10.0f;
     private bool jumped = false;
+    private GameObject mainCamera;
     
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        Debug.Log(transform.rotation.z + " " + transform.rotation.x + " " + transform.rotation.y);
-        Debug.Log(transform.eulerAngles.z + " " + transform.eulerAngles.x + " " + transform.eulerAngles.y);
+        mainCamera = transform.GetChild(0).gameObject;
+
     }
 
     //use FixedUpdate when applying forces to RigidBodies (syncs with physics)
@@ -32,15 +33,14 @@ public class Player : MonoBehaviour
         //Vector3 vel = new Vector3(v * walkForce * Time.deltaTime, rb.velocity.y, -h * walkForce * Time.deltaTime);
         //Vector3 vel = new Vector3(hForce * Time.deltaTime, rb.velocity.y, vForce * Time.deltaTime);
 
-        float hForce = Mathf.Cos(transform.eulerAngles.y * Mathf.PI / 180) * walkForce * -h;
-        float hForce2 = Mathf.Sin(transform.eulerAngles.y * Mathf.PI / 180) * walkForce * -h;
-        float vForce = Mathf.Cos((transform.eulerAngles.y + 90) * Mathf.PI / 180) * walkForce * v;
-        float vForce2 = Mathf.Sin((transform.eulerAngles.y + 90) * Mathf.PI / 180) * walkForce * v;
+        float hForce = Mathf.Cos(transform.eulerAngles.y * Mathf.PI / 180) * walkForce * v;
+        float hForce2 = Mathf.Sin(transform.eulerAngles.y * Mathf.PI / 180) * walkForce * v;
+        float vForce = Mathf.Cos((transform.eulerAngles.y + 90) * Mathf.PI / 180) * walkForce * h;
+        float vForce2 = Mathf.Sin((transform.eulerAngles.y + 90) * Mathf.PI / 180) * walkForce * h;
         Vector3 hVel = new Vector3(hForce2 * Time.deltaTime, rb.velocity.y, hForce * Time.deltaTime);
         Vector3 vVel = new Vector3(vForce2 * Time.deltaTime, rb.velocity.y, vForce * Time.deltaTime);
         Vector3 vel = hVel + vVel;
         rb.velocity = vel;
-        Debug.Log(hForce + " " + hForce2);
 
         //jumping logic
         bool onGround = OnGround();
@@ -62,8 +62,11 @@ public class Player : MonoBehaviour
             jumped = false;
         }
         
-        Vector3 rotation = transform.eulerAngles;
+        /*Vector3 rotation = transform.eulerAngles;
         rotation.y += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
+        transform.eulerAngles = rotation;*/
+        Vector3 rotation = transform.eulerAngles;
+        rotation.y = mainCamera.transform.eulerAngles.y;
         transform.eulerAngles = rotation;
     }
 

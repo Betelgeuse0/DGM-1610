@@ -14,6 +14,8 @@ public class CameraLogic : MonoBehaviour
         playerScript = transform.parent.gameObject.GetComponent<Player>();
         Cursor.lockState = CursorLockMode.Locked;
         transform.LookAt(playerObj.transform);
+        transform.position = playerObj.transform.position;
+        
     }
 
     // Update is called once per frame
@@ -30,5 +32,6 @@ public class CameraLogic : MonoBehaviour
             rotation.x -= Input.GetAxis("Mouse Y") * playerScript.rotationSpeed * Time.deltaTime;
             rotation.y += Input.GetAxis("Mouse X") * playerScript.rotationSpeed * Time.deltaTime;
             transform.eulerAngles = rotation;
+            //transform.eulerAngles = playerObj.transform.eulerAngles;
     }
 }
