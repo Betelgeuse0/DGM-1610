@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        Debug.Log(transform.rotation.z + " " + transform.rotation.x + " " + transform.rotation.y);
+        Debug.Log(transform.eulerAngles.z + " " + transform.eulerAngles.x + " " + transform.eulerAngles.y);
     }
 
     //use FixedUpdate when applying forces to RigidBodies (syncs with physics)
@@ -25,11 +27,20 @@ public class Player : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        float hForce = Mathf.Cos(transform.eulerAngles.z * Mathf.PI / 180) * walkForce * -h;
-        float vForce = Mathf.Sin(transform.eulerAngles.x * Mathf.PI / 180) * walkForce * v;
+        //float hForce = Mathf.Cos(transform.eulerAngles.z * Mathf.PI / 180) * walkForce * -h;
+        //float vForce = Mathf.Sin(transform.eulerAngles.z * Mathf.PI / 180) * walkForce * v;
         //Vector3 vel = new Vector3(v * walkForce * Time.deltaTime, rb.velocity.y, -h * walkForce * Time.deltaTime);
-        Vector3 vel = new Vector3(vForce * Time.deltaTime, rb.velocity.y, hForce * Time.deltaTime);
+        //Vector3 vel = new Vector3(hForce * Time.deltaTime, rb.velocity.y, vForce * Time.deltaTime);
+
+        float hForce = Mathf.Cos(transform.eulerAngles.y * Mathf.PI / 180) * walkForce * -h;
+        float hForce2 = Mathf.Sin(transform.eulerAngles.y * Mathf.PI / 180) * walkForce * -h;
+        float vForce = Mathf.Cos((transform.eulerAngles.y + 90) * Mathf.PI / 180) * walkForce * v;
+        float vForce2 = Mathf.Sin((transform.eulerAngles.y + 90) * Mathf.PI / 180) * walkForce * v;
+        Vector3 hVel = new Vector3(hForce2 * Time.deltaTime, rb.velocity.y, hForce * Time.deltaTime);
+        Vector3 vVel = new Vector3(vForce2 * Time.deltaTime, rb.velocity.y, vForce * Time.deltaTime);
+        Vector3 vel = hVel + vVel;
         rb.velocity = vel;
+        Debug.Log(hForce + " " + hForce2);
 
         //jumping logic
         bool onGround = OnGround();

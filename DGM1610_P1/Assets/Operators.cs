@@ -26,8 +26,10 @@ namespace VarsAndOps    //include variables.cs
 
 public class Operators : MonoBehaviour
 {
+    public bool showLogs = false;
     void Start()
     {
-        VarsAndOps.Ops.StartHere();
+        if (showLogs)
+            VarsAndOps.Ops.StartHere();
     }
 }
