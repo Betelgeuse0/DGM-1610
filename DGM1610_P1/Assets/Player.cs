@@ -24,7 +24,8 @@ public class Player : MonoBehaviour
         //movement logic
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
-        Vector3 moveVel = new Vector3(0, 0, 0);
+        bool onGround = OnGround();
+        /*Vector3 moveForce = new Vector3(0, 0, 0);
         bool onGround = OnGround();
 
         float maxSpeed = maxFloorSpeed;
@@ -36,18 +37,21 @@ public class Player : MonoBehaviour
 
         if ((v > 0 && rb.velocity.x < maxSpeed) || (v < 0 && rb.velocity.x > -maxSpeed)) 
         {
-            moveVel.x = v;
+            moveForce.x = v;
         }
         
         if ((h < 0 && rb.velocity.z < maxSpeed) || (h > 0 && rb.velocity.z > -maxSpeed)) 
         {
-            moveVel.z = -h;
+            moveForce.z = -h;
         }
         
-        moveVel.Normalize();
-        moveVel *= walkForce;
+        moveForce.Normalize();
+        moveForce *= walkForce;
 
-        rb.AddForce(moveVel);
+        rb.AddForce(moveForce);*/
+
+        Vector3 vel = new Vector3(v * walkForce * Time.deltaTime, rb.velocity.y, -h * walkForce * Time.deltaTime);
+        rb.velocity = vel;
 
         //jumping logic
         if (Input.GetKey(KeyCode.Space))
