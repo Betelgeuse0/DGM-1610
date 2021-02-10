@@ -24,36 +24,15 @@ public class Player : MonoBehaviour
         //movement logic
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
-        bool onGround = OnGround();
-        /*Vector3 moveForce = new Vector3(0, 0, 0);
-        bool onGround = OnGround();
 
-        float maxSpeed = maxFloorSpeed;
-
-        if (!onGround)
-        {
-            maxSpeed = maxAirSpeed;
-        }
-
-        if ((v > 0 && rb.velocity.x < maxSpeed) || (v < 0 && rb.velocity.x > -maxSpeed)) 
-        {
-            moveForce.x = v;
-        }
-        
-        if ((h < 0 && rb.velocity.z < maxSpeed) || (h > 0 && rb.velocity.z > -maxSpeed)) 
-        {
-            moveForce.z = -h;
-        }
-        
-        moveForce.Normalize();
-        moveForce *= walkForce;
-
-        rb.AddForce(moveForce);*/
-
-        Vector3 vel = new Vector3(v * walkForce * Time.deltaTime, rb.velocity.y, -h * walkForce * Time.deltaTime);
+        float hForce = Mathf.Cos(transform.eulerAngles.z * Mathf.PI / 180) * walkForce * -h;
+        float vForce = Mathf.Sin(transform.eulerAngles.x * Mathf.PI / 180) * walkForce * v;
+        //Vector3 vel = new Vector3(v * walkForce * Time.deltaTime, rb.velocity.y, -h * walkForce * Time.deltaTime);
+        Vector3 vel = new Vector3(vForce * Time.deltaTime, rb.velocity.y, hForce * Time.deltaTime);
         rb.velocity = vel;
 
         //jumping logic
+        bool onGround = OnGround();
         if (Input.GetKey(KeyCode.Space))
         {
             if (!jumped && onGround) 
