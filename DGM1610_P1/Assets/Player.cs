@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         mainCamera = transform.GetChild(0).gameObject;
+        //GetComponent<MeshRenderer>().enabled = false;
     }
 
     //use FixedUpdate when applying forces to RigidBodies (syncs with physics)
@@ -24,11 +25,6 @@ public class Player : MonoBehaviour
         //movement logic
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
-
-        //float hForce = Mathf.Cos(transform.eulerAngles.z * Mathf.PI / 180) * walkForce * -h;
-        //float vForce = Mathf.Sin(transform.eulerAngles.z * Mathf.PI / 180) * walkForce * v;
-        //Vector3 vel = new Vector3(v * walkForce * Time.deltaTime, rb.velocity.y, -h * walkForce * Time.deltaTime);
-        //Vector3 vel = new Vector3(hForce * Time.deltaTime, rb.velocity.y, vForce * Time.deltaTime);
 
         float hForce = Mathf.Cos(transform.eulerAngles.y * Mathf.PI / 180) * walkForce * v;
         float hForce2 = Mathf.Sin(transform.eulerAngles.y * Mathf.PI / 180) * walkForce * v;
@@ -41,12 +37,14 @@ public class Player : MonoBehaviour
 
         //jumping logic
         bool onGround = OnGround();
+
         if (Input.GetKey(KeyCode.Space))
         {
             if (!jumped && onGround) 
             {
                 rb.AddForce(new Vector3(0, jumpForce, 0));
                 jumped = true;
+                Debug.Log("jumped");
             }
         }
         else if (rb.velocity.y > 0.0f)  //stop the jump short
@@ -58,24 +56,16 @@ public class Player : MonoBehaviour
         {
             jumped = false;
         }
-        
-       /* Vector3 rotation = transform.eulerAngles;
-        rotation.y += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
-        transform.eulerAngles = rotation;*/
-        /*Vector3 rotation = transform.eulerAngles;
-        rotation.y = mainCamera.transform.eulerAngles.y;
-        transform.eulerAngles = rotation;*/
 
         Vector3 rotation = transform.eulerAngles;
         rotation.x -= Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime;
         rotation.y += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
         transform.eulerAngles = rotation;
-
     }
 
     bool OnGround()
     {
         RaycastHit hit;
-        return Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, (GetComponent<BoxCollider>().size.y / 2.0f) + 0.01f);
+        return Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, (GetComponent<BoxCollider>().size.y / 2.0f) + 0.5f);
     }
 }
