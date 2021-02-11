@@ -7,18 +7,15 @@ public class Player : MonoBehaviour
     public Rigidbody rb;
     public float walkForce = 10.0f;
     public float jumpForce = 100.0f;
-    public float maxFloorSpeed = 2.0f;
-    public float maxAirSpeed = 1.0f;
     public float rotationSpeed = 10.0f;
     private bool jumped = false;
-    private GameObject mainCamera;
+    private GameObject mainCamera;         
     
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         mainCamera = transform.GetChild(0).gameObject;
-
     }
 
     //use FixedUpdate when applying forces to RigidBodies (syncs with physics)
@@ -62,12 +59,18 @@ public class Player : MonoBehaviour
             jumped = false;
         }
         
-        /*Vector3 rotation = transform.eulerAngles;
+       /* Vector3 rotation = transform.eulerAngles;
         rotation.y += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
         transform.eulerAngles = rotation;*/
-        Vector3 rotation = transform.eulerAngles;
+        /*Vector3 rotation = transform.eulerAngles;
         rotation.y = mainCamera.transform.eulerAngles.y;
+        transform.eulerAngles = rotation;*/
+
+        Vector3 rotation = transform.eulerAngles;
+        rotation.x -= Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime;
+        rotation.y += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
         transform.eulerAngles = rotation;
+
     }
 
     bool OnGround()
