@@ -14,7 +14,7 @@ public class CameraLogic : MonoBehaviour
         playerScript = transform.parent.gameObject.GetComponent<Player>();
         Cursor.lockState = CursorLockMode.Locked;
         transform.LookAt(playerObj.transform);
-        transform.position = playerObj.transform.position;
+        transform.position = playerObj.transform.position + new Vector3(0, (playerObj.GetComponent<BoxCollider>().size.y / 2.0f) + 0.5f, 0);
         
     }
 
@@ -26,14 +26,6 @@ public class CameraLogic : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
             else if (Input.GetMouseButtonDown(0)) 
                 Cursor.lockState = CursorLockMode.Locked;
-            
-            //rotate the camera with mouse
-            /*Vector3 rotation = transform.eulerAngles;
-            rotation.x -= Input.GetAxis("Mouse Y") * playerScript.rotationSpeed * Time.deltaTime;
-            rotation.y += Input.GetAxis("Mouse X") * playerScript.rotationSpeed * Time.deltaTime;
-            Debug.Log(Input.GetAxis("Mouse X"));
-            //rotation.y = playerObj.transform.eulerAngles.y;
-            transform.eulerAngles = rotation;*/
 
             transform.eulerAngles = playerObj.transform.eulerAngles;
     }

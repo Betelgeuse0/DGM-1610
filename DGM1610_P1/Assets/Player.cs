@@ -9,13 +9,13 @@ public class Player : MonoBehaviour
     public float jumpForce = 100.0f;
     public float rotationSpeed = 10.0f;
     private bool jumped = false;
-    private GameObject mainCamera;         
+    //private GameObject mainCamera;         
     
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        mainCamera = transform.GetChild(0).gameObject;
+        //mainCamera = transform.GetChild(0).gameObject;
         //GetComponent<MeshRenderer>().enabled = false;
     }
 
@@ -30,9 +30,10 @@ public class Player : MonoBehaviour
         float hForce2 = Mathf.Sin(transform.eulerAngles.y * Mathf.PI / 180) * walkForce * v;
         float vForce = Mathf.Cos((transform.eulerAngles.y + 90) * Mathf.PI / 180) * walkForce * h;
         float vForce2 = Mathf.Sin((transform.eulerAngles.y + 90) * Mathf.PI / 180) * walkForce * h;
-        Vector3 hVel = new Vector3(hForce2 * Time.deltaTime, rb.velocity.y, hForce * Time.deltaTime);
-        Vector3 vVel = new Vector3(vForce2 * Time.deltaTime, rb.velocity.y, vForce * Time.deltaTime);
-        Vector3 vel = hVel + vVel;
+        Vector3 hVel = new Vector3(hForce2 * Time.deltaTime, 0, hForce * Time.deltaTime);
+        Vector3 vVel = new Vector3(vForce2 * Time.deltaTime, 0, vForce * Time.deltaTime);
+        Vector3 vel = rb.velocity;
+        vel += hVel + vVel;
         rb.velocity = vel;
 
         //jumping logic
@@ -44,7 +45,6 @@ public class Player : MonoBehaviour
             {
                 rb.AddForce(new Vector3(0, jumpForce, 0));
                 jumped = true;
-                Debug.Log("jumped");
             }
         }
         else if (rb.velocity.y > 0.0f)  //stop the jump short
