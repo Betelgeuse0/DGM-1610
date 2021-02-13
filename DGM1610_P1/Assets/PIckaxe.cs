@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PIckaxe : MonoBehaviour
 {
+    public float swingTime = 0.25f;
     private float swingTimer = 0;
+    public float swingRotate = 5;
     void Start()
     {
         
@@ -15,17 +17,20 @@ public class PIckaxe : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Quaternion r = transform.rotation;
-            r.x += 30;
-            transform.rotation = r;
-            swingTimer = 0.5f;
+            if (transform.eulerAngles.x == 0)
+            {
+                Vector3 angle = transform.eulerAngles;
+                angle.x += swingRotate;
+                transform.eulerAngles = angle;
+                swingTimer = swingTime;
+            }
         }
         else 
         {
             if (swingTimer > 0)
                 swingTimer -= Time.deltaTime;
             else if (transform.rotation.x != 0.0f)
-                transform.rotation = new Quaternion(0, 0, 0, 0);
+                transform.eulerAngles = new Vector3(0, 0, 0);
         }
     }
 }

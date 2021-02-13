@@ -448,6 +448,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd828280d20aa84d8b76b856ee72af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swingTime: 0.25
+  swingRotate: 50
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
