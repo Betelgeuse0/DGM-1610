@@ -6,31 +6,34 @@ public class PIckaxe : MonoBehaviour
 {
     public float swingTime = 0.25f;
     private float swingTimer = 0;
-    public float swingRotate = 5;
+    public float swingRotate = 0;
+    private Vector3 angle = new Vector3(0, 0, 0);
+    private GameObject playerObj;
+
     void Start()
     {
-        
+        playerObj = transform.parent.gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0) && swingTimer <= 0)
         {
-            if (transform.eulerAngles.x == 0)
+            if (angle.x == 0)
             {
-                Vector3 angle = transform.eulerAngles;
-                angle.x += swingRotate;
-                transform.eulerAngles = angle;
+                angle.x = swingRotate;
                 swingTimer = swingTime;
-            }
+            } 
         }
         else 
         {
             if (swingTimer > 0)
                 swingTimer -= Time.deltaTime;
-            else if (transform.rotation.x != 0.0f)
-                transform.eulerAngles = new Vector3(0, 0, 0);
+            else
+                angle.x = 0;
         }
+
+        transform.eulerAngles = playerObj.transform.eulerAngles + angle;
     }
 }
