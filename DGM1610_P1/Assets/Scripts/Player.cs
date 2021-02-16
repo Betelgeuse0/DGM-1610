@@ -57,10 +57,25 @@ public class Player : MonoBehaviour
             jumped = false;
         }
 
-        Vector3 rotation = transform.eulerAngles;
-        rotation.x -= Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime;
-        rotation.y += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
-        transform.eulerAngles = rotation;
+        Vector3 euler = transform.eulerAngles;
+
+        euler.x -= Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime;
+
+        //if (transform.eulerAngles)
+        euler.y += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
+        //rotation.x = rotation.x < 225 && rotation.x > 0 ? Mathf.Clamp(rotation.x, 0, 80) : Mathf.Clamp(rotation.x, 280, 360); //down is 90, up is 270
+        
+        //smooth transitioning with clamping
+        if (euler.x < 0) {
+            euler.x += 359;
+        }
+        else if (euler.x > 359) {
+            euler.x -= 359;
+        }
+
+        euler.x = euler.x < (90 + rotationSpeed * Time.deltaTime) ? Mathf.Clamp(euler.x, 0, 80) : Mathf.Clamp(euler.x, 270, 359);
+
+        transform.eulerAngles = euler;
     }
 
     bool OnGround()
