@@ -791,8 +791,11 @@ GameObject:
   - component: {fileID: 1851376381}
   - component: {fileID: 1851376380}
   - component: {fileID: 1851376379}
+  - component: {fileID: 1851376386}
+  - component: {fileID: 1851376385}
+  - component: {fileID: 1851376384}
   m_Layer: 0
-  m_Name: VarsAndOps Runner
+  m_Name: scriptRunner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -805,7 +808,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1851376378}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20a55a2a41ef66545a4b964978129167, type: 3}
   m_Name: 
@@ -885,3 +888,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1851376384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851376378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81d892216042e5843b373de058f8e2b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1851376385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851376378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a18ba19fd8dd33149bca641aeee7fa83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1851376386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851376378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19d2c1d661c9aac40814efa1d1cb8c97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
