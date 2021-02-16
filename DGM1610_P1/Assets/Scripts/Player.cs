@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public float jumpForce = 100.0f;
     public float rotationSpeed = 10.0f;
     private bool jumped = false;
-    //private GameObject mainCamera;         
+    public GameObject mainCamera;         
     
     void Start()
     {
@@ -57,13 +57,10 @@ public class Player : MonoBehaviour
             jumped = false;
         }
 
-        Vector3 euler = transform.eulerAngles;
+        /*Vector3 euler = transform.eulerAngles;
 
         euler.x -= Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime;
-
-        //if (transform.eulerAngles)
         euler.y += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
-        //rotation.x = rotation.x < 225 && rotation.x > 0 ? Mathf.Clamp(rotation.x, 0, 80) : Mathf.Clamp(rotation.x, 280, 360); //down is 90, up is 270
         
         //smooth transitioning with clamping
         if (euler.x < 0) {
@@ -75,6 +72,10 @@ public class Player : MonoBehaviour
 
         euler.x = euler.x < (90 + rotationSpeed * Time.deltaTime) ? Mathf.Clamp(euler.x, 0, 80) : Mathf.Clamp(euler.x, 270, 359);
 
+        transform.eulerAngles = euler;*/
+
+        Vector3 euler = mainCamera.transform.eulerAngles;
+        euler.x = 0;
         transform.eulerAngles = euler;
     }
 

@@ -8,11 +8,11 @@ public class PIckaxe : MonoBehaviour
     private float swingTimer = 0;
     public float swingRotate = 0;
     private Vector3 angle = new Vector3(0, 0, 0);
-    private GameObject playerObj;
+    private GameObject parentObj;
 
     void Start()
     {
-        playerObj = transform.parent.gameObject;
+        parentObj = transform.parent.gameObject;
     }
 
     // Update is called once per frame
@@ -34,6 +34,6 @@ public class PIckaxe : MonoBehaviour
                 angle.x = 0;
         }
 
-        transform.eulerAngles = playerObj.transform.eulerAngles + angle;
+        transform.eulerAngles = parentObj.transform.eulerAngles + angle;
     }
 }
