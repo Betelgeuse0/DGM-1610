@@ -2,19 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class MainScript : MonoBehaviour
 {
-    public Rigidbody rb;
+    //public Rigidbody rb;
     public float walkForce = 10.0f;
     public float jumpForce = 100.0f;
     public float rotationSpeed = 10.0f;
     private bool jumped = false;
-    public GameObject mainCamera;         
+    public GameObject mainCamera; 
+    private Vector3 velocity = new Vector3(0, 0, 0);
+
+    public Vector3 Velocity {
+        set {velocity = value;}
+        get {return velocity;}
+    }        
     
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
+        //rb = GetComponent<Rigidbody>();
+        //rb.freezeRotation = true;
         //mainCamera = transform.GetChild(0).gameObject;
         //GetComponent<MeshRenderer>().enabled = false;
     }
@@ -32,10 +38,10 @@ public class Player : MonoBehaviour
         float vForce2 = Mathf.Sin((transform.eulerAngles.y + 90) * Mathf.PI / 180) * walkForce * h;
         Vector3 hVel = new Vector3(hForce2 * Time.deltaTime, 0, hForce * Time.deltaTime);
         Vector3 vVel = new Vector3(vForce2 * Time.deltaTime, 0, vForce * Time.deltaTime);
-        Vector3 vel = rb.velocity;
-        vel += hVel + vVel;
-        rb.velocity = vel;
-
+        //Vector3 vel = rb.velocity;
+        //vel += hVel + vVel;
+        //rb.velocity = vel;
+        velocity += hVel + vVel;
         //jumping logic
         bool onGround = OnGround();
 
@@ -43,40 +49,32 @@ public class Player : MonoBehaviour
         {
             if (!jumped && onGround) 
             {
-                rb.AddForce(new Vector3(0, jumpForce, 0));
+                //rb.AddForce(new Vector3(0, jumpForce, 0));
                 jumped = true;
             }
         }
-        else if (rb.velocity.y > 0.0f)  //stop the jump short
+        else if (velocity.y > 0.0f)  //stop the jump short
         {
-            rb.AddForce(new Vector3(0, -rb.velocity.y, 0));    
+            //rb.AddForce(new Vector3(0, -rb.velocity.y, 0));    
         }
         
-        if (rb.velocity.y <= 0.0f)
+        if (velocity.y <= 0.0f)
         {
             jumped = false;
         }
 
-        /*Vector3 euler = transform.eulerAngles;
+        //gravity
+        velocity.y -= 0.001f;
+        Vector3 pos = transform.position + velocity;
+        //apply force to position
+        transform.position = pos;
 
-        euler.x -= Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime;
-        euler.y += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
-        
-        //smooth transitioning with clamping
-        if (euler.x < 0) {
-            euler.x += 359;
-        }
-        else if (euler.x > 359) {
-            euler.x -= 359;
-        }
-
-        euler.x = euler.x < (90 + rotationSpeed * Time.deltaTime) ? Mathf.Clamp(euler.x, 0, 80) : Mathf.Clamp(euler.x, 270, 359);
-
-        transform.eulerAngles = euler;*/
-
+        //angle
         Vector3 euler = mainCamera.transform.eulerAngles;
         euler.x = 0;
         transform.eulerAngles = euler;
+
+
     }
 
     bool OnGround()

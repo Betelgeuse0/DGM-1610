@@ -6,13 +6,13 @@ public class CameraLogic : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject playerObj;
-    private Player playerScript;
+    private MainScript playerScript;
 
     void Start()
     {
         //playerObj = transform.parent.gameObject;
        // playerScript = transform.parent.gameObject.GetComponent<Player>();
-        playerScript = playerObj.GetComponent<Player>();
+        playerScript = playerObj.GetComponent<MainScript>();
         Cursor.lockState = CursorLockMode.Locked;
         //transform.LookAt(playerObj.transform);
         //transform.position = playerObj.transform.position + new Vector3(0, (playerObj.GetComponent<BoxCollider>().size.y / 2.0f) + 0.5f, 0);
