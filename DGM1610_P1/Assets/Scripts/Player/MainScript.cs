@@ -10,15 +10,12 @@ public class MainScript : MonoBehaviour
     public float rotationSpeed = 10.0f;
     private bool jumped = false;
     public GameObject mainCamera; 
-    private Vector3 velocity = new Vector3(0, 0, 0);
+    private CustomPhysics physicsScript;
 
-    public Vector3 Velocity {
-        set {velocity = value;}
-        get {return velocity;}
-    }        
-    
     void Start()
     {
+        physicsScript = GetComponent<CustomPhysics>();
+        physicsScript.ResolveCollisions(gameObject);
         //rb = GetComponent<Rigidbody>();
         //rb.freezeRotation = true;
         //mainCamera = transform.GetChild(0).gameObject;
@@ -36,14 +33,14 @@ public class MainScript : MonoBehaviour
         float hForce2 = Mathf.Sin(transform.eulerAngles.y * Mathf.PI / 180) * walkForce * v;
         float vForce = Mathf.Cos((transform.eulerAngles.y + 90) * Mathf.PI / 180) * walkForce * h;
         float vForce2 = Mathf.Sin((transform.eulerAngles.y + 90) * Mathf.PI / 180) * walkForce * h;
-        Vector3 hVel = new Vector3(hForce2 * Time.deltaTime, 0, hForce * Time.deltaTime);
-        Vector3 vVel = new Vector3(vForce2 * Time.deltaTime, 0, vForce * Time.deltaTime);
+        Vector3 hVel = new Vector3(hForce2, 0, hForce);
+        Vector3 vVel = new Vector3(vForce2, 0, vForce);
         //Vector3 vel = rb.velocity;
         //vel += hVel + vVel;
         //rb.velocity = vel;
-        velocity += hVel + vVel;
+        physicsScript.Velocity = hVel + vVel;
         //jumping logic
-        bool onGround = OnGround();
+        bool onGround = physicsScript.OnGround(gameObject);
 
         if (Input.GetKey(KeyCode.Space))
         {
@@ -53,33 +50,22 @@ public class MainScript : MonoBehaviour
                 jumped = true;
             }
         }
-        else if (velocity.y > 0.0f)  //stop the jump short
+        else if (physicsScript.Velocity.y > 0.0f)  //stop the jump short
         {
             //rb.AddForce(new Vector3(0, -rb.velocity.y, 0));    
         }
         
-        if (velocity.y <= 0.0f)
+        if (physicsScript.Velocity.y <= 0.0f)
         {
             jumped = false;
         }
 
-        //gravity
-        velocity.y -= 0.001f;
-        Vector3 pos = transform.position + velocity;
-        //apply force to position
-        transform.position = pos;
 
         //angle
         Vector3 euler = mainCamera.transform.eulerAngles;
         euler.x = 0;
         transform.eulerAngles = euler;
 
-
-    }
-
-    bool OnGround()
-    {
-        RaycastHit hit;
-        return Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, (GetComponent<BoxCollider>().size.y / 2.0f) + 0.5f);
+        physicsScript.ApplyPhysics(gameObject);
     }
 }
