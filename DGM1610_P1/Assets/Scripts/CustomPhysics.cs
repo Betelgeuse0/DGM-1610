@@ -5,6 +5,7 @@ using UnityEngine;
 public class CustomPhysics : MonoBehaviour
 {
     public float gravity = 0.001f;
+    public float maxGravity = 0.1f;
     public float bounciness = 0.1f;
     private Vector3 velocity = new Vector3();
     private RaycastHit zHit;
@@ -36,7 +37,8 @@ public class CustomPhysics : MonoBehaviour
 
     public void ApplyGravity()
     {
-        velocity.y -= gravity;
+        if (velocity.y > -maxGravity)
+            velocity.y -= gravity;
     }
 
     public void ApplyForce(Vector3 force)

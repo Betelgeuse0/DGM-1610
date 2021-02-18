@@ -36,7 +36,7 @@ public class MainScript : MonoBehaviour
         float vForce2 = Mathf.Sin((transform.eulerAngles.y + 90) * Mathf.PI / 180) * walkForce * h;
         Vector3 hVel = new Vector3(hForce2, 0, hForce);
         Vector3 vVel = new Vector3(vForce2, 0, vForce);
-        physicsScript.Velocity = hVel + vVel;
+        physicsScript.Velocity = hVel + vVel + new Vector3(0, physicsScript.Velocity.y, 0);
         //jumping logic
         bool onGround = physicsScript.OnGround(gameObject);
 
@@ -55,23 +55,24 @@ public class MainScript : MonoBehaviour
             vel.y = 0;
             physicsScript.Velocity = vel;*/
 
-            physicsScript.ApplyForce(new Vector3(0, -physicsScript.Velocity.y / 2, 0));
+            //physicsScript.ApplyForce(new Vector3(0, -physicsScript.Velocity.y / 2, 0));
             //rb.AddForce(new Vector3(0, -rb.velocity.y, 0));    
         }
         
         if (jumped)
         {
             float t = (lerp.y / jumpForce) + Time.deltaTime;
-            lerp = Vector3.Lerp(Vector3.zero, new Vector3(0, jumpForce, 0), t);
-            physicsScript.Velocity += lerp;
-
+            lerp = Vector3.Lerp(new Vector3(0, jumpForce / 2, 0), new Vector3(0, jumpForce, 0), t);
+            Vector3 vel = physicsScript.Velocity;
+            vel.y = lerp.y;
+            physicsScript.Velocity = vel;
             if (lerp == new Vector3(0, jumpForce, 0))
             {
                 jumped = false;
                 lerp = Vector3.zero;
             }
         }
-        
+
 
 
         //angle
