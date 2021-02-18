@@ -11,6 +11,7 @@ public class MainScript : MonoBehaviour
     private bool jumped = false;
     public GameObject mainCamera; 
     private CustomPhysics physicsScript;
+    private Vector3 lerp = new Vector3();
 
     void Start()
     {
@@ -39,14 +40,14 @@ public class MainScript : MonoBehaviour
         //jumping logic
         bool onGround = physicsScript.OnGround(gameObject);
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && !jumped)
         {
-            if (!jumped && onGround) 
-            {
                 //rb.AddForce(new Vector3(0, jumpForce, 0));
-                physicsScript.ApplyForce(new Vector3(0, jumpForce, 0));
+            if (onGround)
+            {
                 jumped = true;
             }
+                //physicsScript.ApplyForce(new Vector3(0, force, 0));
         }
         else if (physicsScript.Velocity.y > 0.0f)  //stop the jump short
         {
@@ -54,14 +55,23 @@ public class MainScript : MonoBehaviour
             vel.y = 0;
             physicsScript.Velocity = vel;*/
 
-            //physicsScript.ApplyForce(new Vector3(0, -physicsScript.Velocity.y / 2, 0));
+            physicsScript.ApplyForce(new Vector3(0, -physicsScript.Velocity.y / 2, 0));
             //rb.AddForce(new Vector3(0, -rb.velocity.y, 0));    
         }
         
-        if (physicsScript.Velocity.y <= 0.0f)
+        if (jumped)
         {
-            jumped = false;
+            float t = (lerp.y / jumpForce) + Time.deltaTime;
+            lerp = Vector3.Lerp(Vector3.zero, new Vector3(0, jumpForce, 0), t);
+            physicsScript.Velocity += lerp;
+
+            if (lerp == new Vector3(0, jumpForce, 0))
+            {
+                jumped = false;
+                lerp = Vector3.zero;
+            }
         }
+        
 
 
         //angle

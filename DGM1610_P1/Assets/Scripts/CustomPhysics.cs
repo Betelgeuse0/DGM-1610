@@ -28,7 +28,7 @@ public class CustomPhysics : MonoBehaviour
     {
         MainScript s = o.GetComponent<MainScript>();
 
-        if (OnGround(o))
+        if (OnGround(o) && velocity.y < 0)  //onGround and falling
         {
            velocity.y *= -bounciness;
         }
@@ -46,7 +46,6 @@ public class CustomPhysics : MonoBehaviour
 
     public bool OnGround(GameObject o)
     {
-        Debug.Log(o.GetComponent<BoxCollider>().size.y);
         return Physics.Raycast(o.transform.position, o.transform.TransformDirection(Vector3.down), out yHit, (o.GetComponent<BoxCollider>().size.y / 2.0f));
     }
 
