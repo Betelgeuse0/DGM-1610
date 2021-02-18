@@ -33,6 +33,27 @@ public class CustomPhysics : MonoBehaviour
         {
            velocity.y *= -bounciness;
         }
+
+        if (OnCeiling(o) && velocity.y > 0) //onCeiling and rising
+        {
+            velocity.y *= -bounciness;
+        }
+
+        if (onWallX(o))
+        {
+            if ((xHit.point.x < o.transform.position.x && velocity.x < 0) || (xHit.point.x > o.transform.position.x && velocity.x > 0))
+                velocity.x *= -bounciness;
+            
+            Debug.Log(velocity.x + " : " + xHit.point.x + " : " + o.transform.position.x);
+        }
+
+        /*if (onWallZ(o))
+        {
+            if ((zHit.point.z < o.transform.position.z && velocity.z < 0) || (zHit.point.z > o.transform.position.z && velocity.z > 0))
+                velocity.z *= -bounciness;
+            Debug.Log(velocity.z + " : " + xHit.point.z);
+        }*/
+
     }
 
     public void ApplyGravity()
@@ -56,11 +77,15 @@ public class CustomPhysics : MonoBehaviour
         return Physics.Raycast(o.transform.position, o.transform.TransformDirection(Vector3.up), out yHit, (o.GetComponent<BoxCollider>().size.y / 2.0f));
     }
 
-    public bool onWall(GameObject o)
+    public bool onWallX(GameObject o)
+    {
+        return Physics.Raycast(o.transform.position, o.transform.TransformDirection(Vector3.left), out xHit, (o.GetComponent<BoxCollider>().size.y / 2.0f))
+            || Physics.Raycast(o.transform.position, o.transform.TransformDirection(Vector3.right), out xHit, (o.GetComponent<BoxCollider>().size.y / 2.0f));
+    }
+
+    public bool onWallZ(GameObject o)
     {
         return Physics.Raycast(o.transform.position, o.transform.TransformDirection(Vector3.forward), out zHit, (o.GetComponent<BoxCollider>().size.y / 2.0f))
-            || Physics.Raycast(o.transform.position, o.transform.TransformDirection(Vector3.back), out zHit, (o.GetComponent<BoxCollider>().size.y / 2.0f))
-            || Physics.Raycast(o.transform.position, o.transform.TransformDirection(Vector3.left), out xHit, (o.GetComponent<BoxCollider>().size.y / 2.0f))
-            || Physics.Raycast(o.transform.position, o.transform.TransformDirection(Vector3.right), out xHit, (o.GetComponent<BoxCollider>().size.y / 2.0f));
+            || Physics.Raycast(o.transform.position, o.transform.TransformDirection(Vector3.back), out zHit, (o.GetComponent<BoxCollider>().size.y / 2.0f));
     }
 }

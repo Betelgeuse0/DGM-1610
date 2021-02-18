@@ -18,12 +18,20 @@ public class TileMap : MonoBehaviour
             {
                 for (int z = 0; z < mapDim.z; z += tileDim)
                 {
-                    //place tiles
+                    //place floor tiles
                     GameObject clone = GameObject.Instantiate(tile);
                     clone.transform.position = new Vector3(x, y, z);
+
+                    //place wall tiles
+                    clone = GameObject.Instantiate(tile);
+                    clone.transform.position = new Vector3(x, z, y);
+
+                    clone = GameObject.Instantiate(tile);
+                    clone.transform.position = new Vector3(y, z, x);
                 }
             }
         }
+
     }
 
     // Update is called once per frame
