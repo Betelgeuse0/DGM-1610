@@ -22,13 +22,16 @@ public class CameraLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            //lock and unlock the mouse depending on the input
-            if (Input.GetKey(KeyCode.Escape))
-                Cursor.lockState = CursorLockMode.None;
-            else if (Input.GetMouseButtonDown(0)) 
-                Cursor.lockState = CursorLockMode.Locked;
+        //lock and unlock the mouse depending on the input
+        if (Input.GetKey(KeyCode.Escape))
+            Cursor.lockState = CursorLockMode.None;
+        else if (Input.GetMouseButtonDown(0)) 
+            Cursor.lockState = CursorLockMode.Locked;
 
+        //follow player position
         transform.position = playerObj.transform.position + new Vector3(0, (playerObj.GetComponent<BoxCollider>().size.y / 2.0f) + 0.5f, 0);
+
+        //let the camera look towards the mouse
         Vector3 euler = transform.eulerAngles;
 
         euler.x -= Input.GetAxis("Mouse Y") * playerScript.rotationSpeed * Time.deltaTime;
