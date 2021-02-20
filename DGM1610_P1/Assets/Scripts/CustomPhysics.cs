@@ -66,23 +66,23 @@ public class CustomPhysics : MonoBehaviour
 
     public bool OnGround(GameObject o)
     {
-        return Physics.Raycast(o.transform.position, o.transform.TransformDirection(Vector3.down), out yHit, (o.GetComponent<BoxCollider>().size.y / 2.0f));
+        return Physics.Raycast(o.transform.position, Vector3.down, out yHit, (o.GetComponent<BoxCollider>().size.y / 2.0f));
     }
 
     public bool OnCeiling(GameObject o)
     {
-        return Physics.Raycast(o.transform.position, o.transform.TransformDirection(Vector3.up), out yHit, (o.GetComponent<BoxCollider>().size.y / 2.0f));
+        return Physics.Raycast(o.transform.position, Vector3.up, out yHit, (o.GetComponent<BoxCollider>().size.y / 2.0f) + 0.45f);
     }
 
     public bool onWallX(GameObject o)
     {
-        return Physics.Raycast(o.transform.position, Vector3.left/*o.transform.TransformDirection(Vector3.left)*/, out xHit, (o.GetComponent<BoxCollider>().size.y / 2.0f))
-            || Physics.Raycast(o.transform.position, Vector3.right/*o.transform.TransformDirection(Vector3.right)*/, out xHit, (o.GetComponent<BoxCollider>().size.y / 2.0f));
+        return Physics.Raycast(o.transform.position, Vector3.left, out xHit, (o.GetComponent<BoxCollider>().size.y / 2.0f))
+            || Physics.Raycast(o.transform.position, Vector3.right, out xHit, (o.GetComponent<BoxCollider>().size.y / 2.0f));
     }
 
     public bool onWallZ(GameObject o)
     {
-        return Physics.Raycast(o.transform.position, Vector3.forward/*o.transform.TransformDirection(Vector3.forward)*/, out zHit, (o.GetComponent<BoxCollider>().size.y / 2.0f))
-            || Physics.Raycast(o.transform.position, Vector3.back/*o.transform.TransformDirection(Vector3.back)*/, out zHit, (o.GetComponent<BoxCollider>().size.y / 2.0f));
+        return Physics.Raycast(o.transform.position, Vector3.forward, out zHit, (o.GetComponent<BoxCollider>().size.y / 2.0f))
+            || Physics.Raycast(o.transform.position, Vector3.back, out zHit, (o.GetComponent<BoxCollider>().size.y / 2.0f));
     }
 }

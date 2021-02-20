@@ -18,9 +18,12 @@ public class TileMap : MonoBehaviour
             {
                 for (int z = 0; z < mapDim.z; z += tileDim)
                 {
-                    //place floor tiles
+                    //place floor and ceiling tiles
                     GameObject clone = GameObject.Instantiate(tile);
                     clone.transform.position = new Vector3(x, y, z);
+
+                    clone = GameObject.Instantiate(tile);
+                    clone.transform.position = new Vector3(x, y + 3, z);
 
                     //place wall tiles
                     clone = GameObject.Instantiate(tile);
@@ -28,6 +31,12 @@ public class TileMap : MonoBehaviour
 
                     clone = GameObject.Instantiate(tile);
                     clone.transform.position = new Vector3(y, z, x);
+
+                    clone = GameObject.Instantiate(tile);
+                    clone.transform.position = new Vector3(x, z, y + 10);
+
+                    clone = GameObject.Instantiate(tile);
+                    clone.transform.position = new Vector3(y + 10, z, x);
                 }
             }
         }

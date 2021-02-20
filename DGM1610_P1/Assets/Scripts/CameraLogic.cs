@@ -29,7 +29,7 @@ public class CameraLogic : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
 
         //follow player position
-        transform.position = playerObj.transform.position + new Vector3(0, (playerObj.GetComponent<BoxCollider>().size.y / 2.0f) + 0.5f, 0);
+        transform.position = playerObj.transform.position + new Vector3(0, (playerObj.GetComponent<BoxCollider>().size.y / 2.0f), 0);
 
         //let the camera look towards the mouse
         Vector3 euler = transform.eulerAngles;
