@@ -39,20 +39,19 @@ public class CustomPhysics : MonoBehaviour
             velocity.y *= -bounciness;
         }
 
-        if (onWallX(o))
+        /*if (onWallX(o))
         {
             if ((xHit.point.x < o.transform.position.x && velocity.x < 0) || (xHit.point.x > o.transform.position.x && velocity.x > 0))
                 velocity.x *= -bounciness;
-            
-            Debug.Log(velocity.x + " : " + xHit.point.x + " : " + o.transform.position.x);
-        }
+        }*/
 
-        /*if (onWallZ(o))
+        if (onWallZ(o))
         {
             if ((zHit.point.z < o.transform.position.z && velocity.z < 0) || (zHit.point.z > o.transform.position.z && velocity.z > 0))
                 velocity.z *= -bounciness;
-            Debug.Log(velocity.z + " : " + xHit.point.z);
-        }*/
+            else if ((xHit.point.x < o.transform.position.x && velocity.x < 0) || (xHit.point.x > o.transform.position.x && velocity.x > 0))
+                velocity.x *= -bounciness;
+        }
 
     }
 
