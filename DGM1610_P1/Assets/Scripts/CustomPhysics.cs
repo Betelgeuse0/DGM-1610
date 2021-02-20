@@ -39,18 +39,16 @@ public class CustomPhysics : MonoBehaviour
             velocity.y *= -bounciness;
         }
 
-        /*if (onWallX(o))
+        if (onWallX(o))
         {
             if ((xHit.point.x < o.transform.position.x && velocity.x < 0) || (xHit.point.x > o.transform.position.x && velocity.x > 0))
                 velocity.x *= -bounciness;
-        }*/
+        }
 
         if (onWallZ(o))
         {
             if ((zHit.point.z < o.transform.position.z && velocity.z < 0) || (zHit.point.z > o.transform.position.z && velocity.z > 0))
                 velocity.z *= -bounciness;
-            else if ((xHit.point.x < o.transform.position.x && velocity.x < 0) || (xHit.point.x > o.transform.position.x && velocity.x > 0))
-                velocity.x *= -bounciness;
         }
 
     }
@@ -78,13 +76,13 @@ public class CustomPhysics : MonoBehaviour
 
     public bool onWallX(GameObject o)
     {
-        return Physics.Raycast(o.transform.position, o.transform.TransformDirection(Vector3.left), out xHit, (o.GetComponent<BoxCollider>().size.y / 2.0f))
-            || Physics.Raycast(o.transform.position, o.transform.TransformDirection(Vector3.right), out xHit, (o.GetComponent<BoxCollider>().size.y / 2.0f));
+        return Physics.Raycast(o.transform.position, Vector3.left/*o.transform.TransformDirection(Vector3.left)*/, out xHit, (o.GetComponent<BoxCollider>().size.y / 2.0f))
+            || Physics.Raycast(o.transform.position, Vector3.right/*o.transform.TransformDirection(Vector3.right)*/, out xHit, (o.GetComponent<BoxCollider>().size.y / 2.0f));
     }
 
     public bool onWallZ(GameObject o)
     {
-        return Physics.Raycast(o.transform.position, o.transform.TransformDirection(Vector3.forward), out zHit, (o.GetComponent<BoxCollider>().size.y / 2.0f))
-            || Physics.Raycast(o.transform.position, o.transform.TransformDirection(Vector3.back), out zHit, (o.GetComponent<BoxCollider>().size.y / 2.0f));
+        return Physics.Raycast(o.transform.position, Vector3.forward/*o.transform.TransformDirection(Vector3.forward)*/, out zHit, (o.GetComponent<BoxCollider>().size.y / 2.0f))
+            || Physics.Raycast(o.transform.position, Vector3.back/*o.transform.TransformDirection(Vector3.back)*/, out zHit, (o.GetComponent<BoxCollider>().size.y / 2.0f));
     }
 }
