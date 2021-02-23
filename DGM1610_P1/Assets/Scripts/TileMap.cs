@@ -7,6 +7,7 @@ public class TileMap : MonoBehaviour
     public int tileDim = 1; //the 3d tile dimensions 
     public Vector3 mapDim = new Vector3(10, 10, 1);     //the width and height of the map
     private GameObject tile;
+    
     void Start()
     {
         tile = transform.GetChild(0).gameObject;

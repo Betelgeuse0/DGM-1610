@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/modules.xml
+/projectSettingsUpdater.xml
+/contentModel.xml
+/.idea.DGM1610_P1.iml
+# Datasource local storage ignored files
+/../../../../../../../../../../../../:\Users\kentf\Documents\UVU College\Spring 2021\DGM 1610\DGM 1610\DGM1610_P1\.idea\.idea.DGM1610_P1\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
