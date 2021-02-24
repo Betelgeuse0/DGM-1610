@@ -9,7 +9,7 @@ public class Pickaxe : MonoBehaviour
     public float swingRotate = 0;
     public float hitDistance = 0;
     private Vector3 angle = new Vector3(0, 0, 90);
-    public GameObject camera;
+    public GameObject mainCamera;
 
     void Start()
     {
@@ -25,7 +25,7 @@ public class Pickaxe : MonoBehaviour
             {
                 angle.x = 90 + swingRotate;
                 swingTimer = swingTime;
-                DestroyTilesInFacingDirection();
+                DestroyTilesInFacedDirection();
             } 
         }
         else 
@@ -36,18 +36,18 @@ public class Pickaxe : MonoBehaviour
                 angle.x = 90;
         }
         
-        transform.eulerAngles = camera.transform.eulerAngles + angle;
+        transform.eulerAngles = mainCamera.transform.eulerAngles + angle;
     }
     
-    void DestroyTilesInFacingDirection()
+    void DestroyTilesInFacedDirection()
     {
         //get pointing direction in world space
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);    
         RaycastHit hit;
-        if (Physics.Raycast(camera.transform.position, camera.transform.TransformDirection(Vector3.forward), out hit,
+        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.TransformDirection(Vector3.forward), out hit,
             hitDistance))
         {
-            print(hit.collider.gameObject);
+            Destroy(hit.collider.gameObject);
         }
     }
 }

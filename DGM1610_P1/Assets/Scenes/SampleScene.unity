@@ -341,8 +341,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swingTime: 0.25
   swingRotate: 25
-  hitDistance: 0
-  camera: {fileID: 963194225}
+  hitDistance: 100
+  mainCamera: {fileID: 963194225}
 --- !u!64 &670185785
 MeshCollider:
   m_ObjectHideFlags: 0
