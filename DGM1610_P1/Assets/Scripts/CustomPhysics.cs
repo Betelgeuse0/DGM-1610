@@ -34,7 +34,7 @@ public class CustomPhysics : MonoBehaviour
            velocity.y *= -bounciness;
         }
 
-        if (OnCeiling(o) && velocity.y > 0) //onCeiling and rising
+        /*if (OnCeiling(o) && velocity.y > 0) //onCeiling and rising
         {
             velocity.y *= -bounciness;
         }
@@ -49,7 +49,7 @@ public class CustomPhysics : MonoBehaviour
         {
             if ((zHit.point.z < o.transform.position.z && velocity.z < 0) || (zHit.point.z > o.transform.position.z && velocity.z > 0))
                 velocity.z *= -bounciness;
-        }
+        }*/
 
     }
 
@@ -66,23 +66,68 @@ public class CustomPhysics : MonoBehaviour
 
     public bool OnGround(GameObject o)
     {
-        return Physics.Raycast(o.transform.position, Vector3.down, out yHit, (o.GetComponent<BoxCollider>().size.y / 2.0f));
+        //raycast on all 4 corners
+        float sizeFactor = o.GetComponent<BoxCollider>().size.y * 0.25f;
+        Vector3 origin1 = o.transform.position + new Vector3(sizeFactor, 0, sizeFactor);
+        Vector3 origin2 = o.transform.position + new Vector3(-sizeFactor, 0, sizeFactor);
+        Vector3 origin3 = o.transform.position + new Vector3(sizeFactor, 0, -sizeFactor);
+        Vector3 origin4 = o.transform.position + new Vector3(-sizeFactor, 0, -sizeFactor);
+        return Physics.Raycast(origin1, Vector3.down, out xHit, sizeFactor)
+               || Physics.Raycast(origin2, Vector3.down, out xHit, sizeFactor)
+               || Physics.Raycast(origin3, Vector3.down, out xHit, sizeFactor)
+               || Physics.Raycast(origin4, Vector3.down, out xHit, sizeFactor);
     }
-
+    
+    //note these functions likely only work properly if the dimensions of the box collider xyz are all the same
     public bool OnCeiling(GameObject o)
     {
-        return Physics.Raycast(o.transform.position, Vector3.up, out yHit, (o.GetComponent<BoxCollider>().size.y / 2.0f) + 0.45f);
+        //raycast on all 4 corners
+        float sizeFactor = o.GetComponent<BoxCollider>().size.y * 0.25f;
+        Vector3 origin1 = o.transform.position + new Vector3(sizeFactor, 0, sizeFactor);
+        Vector3 origin2 = o.transform.position + new Vector3(-sizeFactor, 0, sizeFactor);
+        Vector3 origin3 = o.transform.position + new Vector3(sizeFactor, 0, -sizeFactor);
+        Vector3 origin4 = o.transform.position + new Vector3(-sizeFactor, 0, -sizeFactor);
+        return Physics.Raycast(origin1, Vector3.up, out xHit, sizeFactor)
+               || Physics.Raycast(origin2, Vector3.up, out xHit, sizeFactor)
+               || Physics.Raycast(origin3, Vector3.up, out xHit, sizeFactor)
+               || Physics.Raycast(origin4, Vector3.up, out xHit, sizeFactor);
     }
 
     public bool onWallX(GameObject o)
     {
-        return Physics.Raycast(o.transform.position, Vector3.left, out xHit, (o.GetComponent<BoxCollider>().size.y / 2.0f))
-            || Physics.Raycast(o.transform.position, Vector3.right, out xHit, (o.GetComponent<BoxCollider>().size.y / 2.0f));
+        //raycast on all 4 corners
+        float sizeFactor = o.GetComponent<BoxCollider>().size.x * 0.25f;
+        Vector3 origin1 = o.transform.position + new Vector3(0, sizeFactor, sizeFactor);
+        Vector3 origin2 = o.transform.position + new Vector3(0, -sizeFactor, sizeFactor);
+        Vector3 origin3 = o.transform.position + new Vector3(0, sizeFactor, -sizeFactor);
+        Vector3 origin4 = o.transform.position + new Vector3(0, -sizeFactor, -sizeFactor);
+        
+        return Physics.Raycast(origin1, Vector3.left, out xHit, sizeFactor)
+               || Physics.Raycast(origin2, Vector3.left, out xHit, sizeFactor)
+               || Physics.Raycast(origin3, Vector3.left, out xHit, sizeFactor)
+               || Physics.Raycast(origin4, Vector3.left, out xHit, sizeFactor)
+               || Physics.Raycast(origin1, Vector3.right, out xHit, sizeFactor)
+               || Physics.Raycast(origin2, Vector3.right, out xHit, sizeFactor)
+               || Physics.Raycast(origin3, Vector3.right, out xHit, sizeFactor)
+               || Physics.Raycast(origin4, Vector3.right, out xHit, sizeFactor);
     }
 
     public bool onWallZ(GameObject o)
     {
-        return Physics.Raycast(o.transform.position, Vector3.forward, out zHit, (o.GetComponent<BoxCollider>().size.y / 2.0f))
-            || Physics.Raycast(o.transform.position, Vector3.back, out zHit, (o.GetComponent<BoxCollider>().size.y / 2.0f));
+        //raycast on all 4 corners
+        float sizeFactor = o.GetComponent<BoxCollider>().size.z * 0.25f;
+        Vector3 origin1 = o.transform.position + new Vector3(sizeFactor, sizeFactor, 0);
+        Vector3 origin2 = o.transform.position + new Vector3(sizeFactor, -sizeFactor, 0);
+        Vector3 origin3 = o.transform.position + new Vector3(-sizeFactor, sizeFactor, 0);
+        Vector3 origin4 = o.transform.position + new Vector3(-sizeFactor, -sizeFactor, 0);
+        
+        return Physics.Raycast(origin1, Vector3.forward, out xHit, sizeFactor)
+               || Physics.Raycast(origin2, Vector3.forward, out xHit, sizeFactor)
+               || Physics.Raycast(origin3, Vector3.forward, out xHit, sizeFactor)
+               || Physics.Raycast(origin4, Vector3.forward, out xHit, sizeFactor)
+               || Physics.Raycast(origin1, Vector3.back, out xHit, sizeFactor)
+               || Physics.Raycast(origin2, Vector3.back, out xHit, sizeFactor)
+               || Physics.Raycast(origin3, Vector3.back, out xHit, sizeFactor)
+               || Physics.Raycast(origin4, Vector3.back, out xHit, sizeFactor);
     }
 }
