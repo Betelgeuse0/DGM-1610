@@ -23,21 +23,21 @@ public class TileMap : MonoBehaviour
                     GameObject clone = GameObject.Instantiate(tile);
                     clone.transform.position = new Vector3(x, y, z);
 
-                    clone = GameObject.Instantiate(tile);
-                    clone.transform.position = new Vector3(x, y + 4, z);
+                    /*clone = GameObject.Instantiate(tile);
+                    clone.transform.position = new Vector3(x, y + 4, z);*/
 
                     //place wall tiles
                     clone = GameObject.Instantiate(tile);
                     clone.transform.position = new Vector3(x, z, y);
 
-                    clone = GameObject.Instantiate(tile);
+                    /*clone = GameObject.Instantiate(tile);
                     clone.transform.position = new Vector3(y, z, x);
 
                     clone = GameObject.Instantiate(tile);
                     clone.transform.position = new Vector3(x, z, y + 10);
 
                     clone = GameObject.Instantiate(tile);
-                    clone.transform.position = new Vector3(y + 10, z, x);
+                    clone.transform.position = new Vector3(y + 10, z, x);*/
                 }
             }
         }

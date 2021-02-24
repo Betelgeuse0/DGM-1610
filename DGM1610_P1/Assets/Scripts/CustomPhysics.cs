@@ -39,12 +39,41 @@ public class CustomPhysics : MonoBehaviour
             velocity.y *= -bounciness;
         }
         
-        /*if (onWallX(o))
+        if (onWallX(o))
         {
             if ((xHit.point.x < o.transform.position.x && velocity.x < 0) || (xHit.point.x > o.transform.position.x && velocity.x > 0))
                 velocity.x *= -bounciness;
         }
         
+        float sizeFactor = o.GetComponent<BoxCollider>().size.x * 0.5f;
+        Vector3 origin1 = o.transform.position + new Vector3(0, sizeFactor, sizeFactor);
+        Vector3 origin2 = o.transform.position + new Vector3(0, -sizeFactor, sizeFactor);
+        Vector3 origin3 = o.transform.position + new Vector3(0, sizeFactor, -sizeFactor);
+        Vector3 origin4 = o.transform.position + new Vector3(0, -sizeFactor, -sizeFactor);
+        Debug.DrawRay(origin1, Vector3.left * 10, Color.red, 10); 
+        Debug.DrawRay(origin2, Vector3.left * 10, Color.red, 10); 
+        Debug.DrawRay(origin3, Vector3.left * 10, Color.red, 10); 
+        Debug.DrawRay(origin4, Vector3.left * 10, Color.red, 10);
+        Debug.DrawRay(origin1, Vector3.right * 10, Color.red, 10); 
+        Debug.DrawRay(origin2, Vector3.right * 10, Color.red, 10); 
+        Debug.DrawRay(origin3, Vector3.right * 10, Color.red, 10); 
+        Debug.DrawRay(origin4, Vector3.right * 10, Color.red, 10); 
+        
+        origin1 = o.transform.position + new Vector3(sizeFactor, sizeFactor, 0);
+        origin2 = o.transform.position + new Vector3(sizeFactor, -sizeFactor, 0);
+        origin3 = o.transform.position + new Vector3(-sizeFactor, sizeFactor, 0);
+        origin4 = o.transform.position + new Vector3(-sizeFactor, -sizeFactor, 0);
+        
+        Debug.DrawRay(origin1, Vector3.back * 10, Color.red, 10); 
+        Debug.DrawRay(origin2, Vector3.back * 10, Color.red, 10); 
+        Debug.DrawRay(origin3, Vector3.back * 10, Color.red, 10); 
+        Debug.DrawRay(origin4, Vector3.back * 10, Color.red, 10); 
+        Debug.DrawRay(origin1, Vector3.forward * 10, Color.red, 10); 
+        Debug.DrawRay(origin2, Vector3.forward * 10, Color.red, 10); 
+        Debug.DrawRay(origin3, Vector3.forward * 10, Color.red, 10); 
+        Debug.DrawRay(origin4, Vector3.forward * 10, Color.red, 10); 
+
+        /*
         if (onWallZ(o))
         {
             if ((zHit.point.z < o.transform.position.z && velocity.z < 0) || (zHit.point.z > o.transform.position.z && velocity.z > 0))
