@@ -24,7 +24,7 @@ public class TileMap : MonoBehaviour
                     clone.transform.position = new Vector3(x, y, z);
 
                     clone = GameObject.Instantiate(tile);
-                    clone.transform.position = new Vector3(x, y + 3, z);
+                    clone.transform.position = new Vector3(x, y + 4, z);
 
                     //place wall tiles
                     clone = GameObject.Instantiate(tile);

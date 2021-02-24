@@ -34,17 +34,17 @@ public class CustomPhysics : MonoBehaviour
            velocity.y *= -bounciness;
         }
 
-        /*if (OnCeiling(o) && velocity.y > 0) //onCeiling and rising
+        if (OnCeiling(o) && velocity.y > 0) //onCeiling and rising
         {
             velocity.y *= -bounciness;
         }
-
-        if (onWallX(o))
+        
+        /*if (onWallX(o))
         {
             if ((xHit.point.x < o.transform.position.x && velocity.x < 0) || (xHit.point.x > o.transform.position.x && velocity.x > 0))
                 velocity.x *= -bounciness;
         }
-
+        
         if (onWallZ(o))
         {
             if ((zHit.point.z < o.transform.position.z && velocity.z < 0) || (zHit.point.z > o.transform.position.z && velocity.z > 0))
@@ -63,7 +63,8 @@ public class CustomPhysics : MonoBehaviour
     {
         velocity += force;
     }
-
+    
+    //note these functions likely only work properly if the dimensions of the box collider xyz are all the same
     public bool OnGround(GameObject o)
     {
         //raycast on all 4 corners
@@ -72,13 +73,12 @@ public class CustomPhysics : MonoBehaviour
         Vector3 origin2 = o.transform.position + new Vector3(-sizeFactor, 0, sizeFactor);
         Vector3 origin3 = o.transform.position + new Vector3(sizeFactor, 0, -sizeFactor);
         Vector3 origin4 = o.transform.position + new Vector3(-sizeFactor, 0, -sizeFactor);
-        return Physics.Raycast(origin1, Vector3.down, out xHit, sizeFactor)
-               || Physics.Raycast(origin2, Vector3.down, out xHit, sizeFactor)
-               || Physics.Raycast(origin3, Vector3.down, out xHit, sizeFactor)
-               || Physics.Raycast(origin4, Vector3.down, out xHit, sizeFactor);
+        return Physics.Raycast(origin1, Vector3.down, out yHit, sizeFactor)
+               || Physics.Raycast(origin2, Vector3.down, out yHit, sizeFactor)
+               || Physics.Raycast(origin3, Vector3.down, out yHit, sizeFactor)
+               || Physics.Raycast(origin4, Vector3.down, out yHit, sizeFactor);
     }
     
-    //note these functions likely only work properly if the dimensions of the box collider xyz are all the same
     public bool OnCeiling(GameObject o)
     {
         //raycast on all 4 corners
@@ -87,10 +87,10 @@ public class CustomPhysics : MonoBehaviour
         Vector3 origin2 = o.transform.position + new Vector3(-sizeFactor, 0, sizeFactor);
         Vector3 origin3 = o.transform.position + new Vector3(sizeFactor, 0, -sizeFactor);
         Vector3 origin4 = o.transform.position + new Vector3(-sizeFactor, 0, -sizeFactor);
-        return Physics.Raycast(origin1, Vector3.up, out xHit, sizeFactor)
-               || Physics.Raycast(origin2, Vector3.up, out xHit, sizeFactor)
-               || Physics.Raycast(origin3, Vector3.up, out xHit, sizeFactor)
-               || Physics.Raycast(origin4, Vector3.up, out xHit, sizeFactor);
+        return Physics.Raycast(origin1, Vector3.up, out yHit, sizeFactor + 0.8f)
+               || Physics.Raycast(origin2, Vector3.up, out yHit, sizeFactor + 0.8f)
+               || Physics.Raycast(origin3, Vector3.up, out yHit, sizeFactor + 0.8f)
+               || Physics.Raycast(origin4, Vector3.up, out yHit, sizeFactor + 0.8f);
     }
 
     public bool onWallX(GameObject o)
@@ -121,13 +121,13 @@ public class CustomPhysics : MonoBehaviour
         Vector3 origin3 = o.transform.position + new Vector3(-sizeFactor, sizeFactor, 0);
         Vector3 origin4 = o.transform.position + new Vector3(-sizeFactor, -sizeFactor, 0);
         
-        return Physics.Raycast(origin1, Vector3.forward, out xHit, sizeFactor)
-               || Physics.Raycast(origin2, Vector3.forward, out xHit, sizeFactor)
-               || Physics.Raycast(origin3, Vector3.forward, out xHit, sizeFactor)
-               || Physics.Raycast(origin4, Vector3.forward, out xHit, sizeFactor)
-               || Physics.Raycast(origin1, Vector3.back, out xHit, sizeFactor)
-               || Physics.Raycast(origin2, Vector3.back, out xHit, sizeFactor)
-               || Physics.Raycast(origin3, Vector3.back, out xHit, sizeFactor)
-               || Physics.Raycast(origin4, Vector3.back, out xHit, sizeFactor);
+        return Physics.Raycast(origin1, Vector3.forward, out zHit, sizeFactor)
+               || Physics.Raycast(origin2, Vector3.forward, out zHit, sizeFactor)
+               || Physics.Raycast(origin3, Vector3.forward, out zHit, sizeFactor)
+               || Physics.Raycast(origin4, Vector3.forward, out zHit, sizeFactor)
+               || Physics.Raycast(origin1, Vector3.back, out zHit, sizeFactor)
+               || Physics.Raycast(origin2, Vector3.back, out zHit, sizeFactor)
+               || Physics.Raycast(origin3, Vector3.back, out zHit, sizeFactor)
+               || Physics.Raycast(origin4, Vector3.back, out zHit, sizeFactor);
     }
 }
