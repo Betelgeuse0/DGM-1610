@@ -42,11 +42,15 @@ public class Pickaxe : MonoBehaviour
     void DestroyTilesInFacedDirection()
     {
         //get pointing direction in world space
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);    
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        int layerMask = 1 << 10;
+        layerMask = ~layerMask;     //ignore the Player layer
+        
         RaycastHit hit;
         if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.TransformDirection(Vector3.forward), out hit,
-            hitDistance))
+            hitDistance, layerMask))
         {
+            GameObject obj = hit.collider.gameObject;
             Destroy(hit.collider.gameObject);
         }
     }
