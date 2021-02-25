@@ -42,43 +42,47 @@ public class CustomPhysics : MonoBehaviour
         if (onWallX(o))
         {
             if ((xHit.point.x < o.transform.position.x && velocity.x < 0) || (xHit.point.x > o.transform.position.x && velocity.x > 0))
-                velocity.x *= -bounciness;
+                velocity.x *= -bounciness; 
+            Debug.Log("wallx");
         }
         
         float sizeFactor = o.GetComponent<BoxCollider>().size.x * 0.5f;
-        Vector3 origin1 = o.transform.position + new Vector3(0, sizeFactor, sizeFactor);
-        Vector3 origin2 = o.transform.position + new Vector3(0, -sizeFactor, sizeFactor);
-        Vector3 origin3 = o.transform.position + new Vector3(0, sizeFactor, -sizeFactor);
-        Vector3 origin4 = o.transform.position + new Vector3(0, -sizeFactor, -sizeFactor);
-        Debug.DrawRay(origin1, Vector3.left * 10, Color.red, 10); 
-        Debug.DrawRay(origin2, Vector3.left * 10, Color.red, 10); 
-        Debug.DrawRay(origin3, Vector3.left * 10, Color.red, 10); 
-        Debug.DrawRay(origin4, Vector3.left * 10, Color.red, 10);
-        Debug.DrawRay(origin1, Vector3.right * 10, Color.red, 10); 
-        Debug.DrawRay(origin2, Vector3.right * 10, Color.red, 10); 
-        Debug.DrawRay(origin3, Vector3.right * 10, Color.red, 10); 
-        Debug.DrawRay(origin4, Vector3.right * 10, Color.red, 10); 
+        Vector3 position = o.transform.position;
+        position.y += 1f;
+        Vector3 origin1 = position + new Vector3(0, sizeFactor, sizeFactor);
+        Vector3 origin2 = position + new Vector3(0, -sizeFactor, sizeFactor);
+        Vector3 origin3 = position + new Vector3(0, sizeFactor, -sizeFactor);
+        Vector3 origin4 = position + new Vector3(0, -sizeFactor, -sizeFactor);
+        Debug.DrawRay(origin1, Vector3.left * sizeFactor, Color.red); 
+        Debug.DrawRay(origin2, Vector3.left * sizeFactor, Color.red); 
+        Debug.DrawRay(origin3, Vector3.left * sizeFactor, Color.red); 
+        Debug.DrawRay(origin4, Vector3.left * sizeFactor, Color.red);
+        Debug.DrawRay(origin1, Vector3.right * sizeFactor, Color.red); 
+        Debug.DrawRay(origin2, Vector3.right * sizeFactor, Color.red); 
+        Debug.DrawRay(origin3, Vector3.right * sizeFactor, Color.red); 
+        Debug.DrawRay(origin4, Vector3.right * sizeFactor, Color.red); 
         
-        origin1 = o.transform.position + new Vector3(sizeFactor, sizeFactor, 0);
-        origin2 = o.transform.position + new Vector3(sizeFactor, -sizeFactor, 0);
-        origin3 = o.transform.position + new Vector3(-sizeFactor, sizeFactor, 0);
-        origin4 = o.transform.position + new Vector3(-sizeFactor, -sizeFactor, 0);
+        origin1 = position + new Vector3(sizeFactor, sizeFactor, 0);
+        origin2 = position + new Vector3(sizeFactor, -sizeFactor, 0);
+        origin3 = position + new Vector3(-sizeFactor, sizeFactor, 0);
+        origin4 = position + new Vector3(-sizeFactor, -sizeFactor, 0);
         
-        Debug.DrawRay(origin1, Vector3.back * 10, Color.red, 10); 
-        Debug.DrawRay(origin2, Vector3.back * 10, Color.red, 10); 
-        Debug.DrawRay(origin3, Vector3.back * 10, Color.red, 10); 
-        Debug.DrawRay(origin4, Vector3.back * 10, Color.red, 10); 
-        Debug.DrawRay(origin1, Vector3.forward * 10, Color.red, 10); 
-        Debug.DrawRay(origin2, Vector3.forward * 10, Color.red, 10); 
-        Debug.DrawRay(origin3, Vector3.forward * 10, Color.red, 10); 
-        Debug.DrawRay(origin4, Vector3.forward * 10, Color.red, 10); 
+        Debug.DrawRay(origin1, Vector3.back * sizeFactor, Color.red); 
+        Debug.DrawRay(origin2, Vector3.back * sizeFactor, Color.red); 
+        Debug.DrawRay(origin3, Vector3.back * sizeFactor, Color.red); 
+        Debug.DrawRay(origin4, Vector3.back * sizeFactor, Color.red); 
+        Debug.DrawRay(origin1, Vector3.forward * sizeFactor, Color.red); 
+        Debug.DrawRay(origin2, Vector3.forward * sizeFactor, Color.red); 
+        Debug.DrawRay(origin3, Vector3.forward * sizeFactor, Color.red); 
+        Debug.DrawRay(origin4, Vector3.forward * sizeFactor, Color.red); 
 
-        /*
+        
         if (onWallZ(o))
         {
             if ((zHit.point.z < o.transform.position.z && velocity.z < 0) || (zHit.point.z > o.transform.position.z && velocity.z > 0))
                 velocity.z *= -bounciness;
-        }*/
+            Debug.Log("wallz");
+        }
 
     }
 
@@ -97,7 +101,7 @@ public class CustomPhysics : MonoBehaviour
     public bool OnGround(GameObject o)
     {
         //raycast on all 4 corners
-        float sizeFactor = o.GetComponent<BoxCollider>().size.y * 0.25f;
+        float sizeFactor = o.GetComponent<BoxCollider>().size.y * 0.5f;
         Vector3 origin1 = o.transform.position + new Vector3(sizeFactor, 0, sizeFactor);
         Vector3 origin2 = o.transform.position + new Vector3(-sizeFactor, 0, sizeFactor);
         Vector3 origin3 = o.transform.position + new Vector3(sizeFactor, 0, -sizeFactor);
@@ -111,7 +115,7 @@ public class CustomPhysics : MonoBehaviour
     public bool OnCeiling(GameObject o)
     {
         //raycast on all 4 corners
-        float sizeFactor = o.GetComponent<BoxCollider>().size.y * 0.25f;
+        float sizeFactor = o.GetComponent<BoxCollider>().size.y * 0.5f;
         Vector3 origin1 = o.transform.position + new Vector3(sizeFactor, 0, sizeFactor);
         Vector3 origin2 = o.transform.position + new Vector3(-sizeFactor, 0, sizeFactor);
         Vector3 origin3 = o.transform.position + new Vector3(sizeFactor, 0, -sizeFactor);
@@ -125,11 +129,14 @@ public class CustomPhysics : MonoBehaviour
     public bool onWallX(GameObject o)
     {
         //raycast on all 4 corners
-        float sizeFactor = o.GetComponent<BoxCollider>().size.x * 0.25f;
-        Vector3 origin1 = o.transform.position + new Vector3(0, sizeFactor, sizeFactor);
-        Vector3 origin2 = o.transform.position + new Vector3(0, -sizeFactor, sizeFactor);
-        Vector3 origin3 = o.transform.position + new Vector3(0, sizeFactor, -sizeFactor);
-        Vector3 origin4 = o.transform.position + new Vector3(0, -sizeFactor, -sizeFactor);
+        float sizeFactor = o.GetComponent<BoxCollider>().size.x * 0.5f;
+        Vector3 position = o.transform.position;
+        position.y += 1f;
+        
+        Vector3 origin1 = position + new Vector3(0, sizeFactor, sizeFactor);
+        Vector3 origin2 = position + new Vector3(0, -sizeFactor, sizeFactor);
+        Vector3 origin3 = position + new Vector3(0, sizeFactor, -sizeFactor);
+        Vector3 origin4 = position + new Vector3(0, -sizeFactor, -sizeFactor);
         
         return Physics.Raycast(origin1, Vector3.left, out xHit, sizeFactor)
                || Physics.Raycast(origin2, Vector3.left, out xHit, sizeFactor)
@@ -144,11 +151,14 @@ public class CustomPhysics : MonoBehaviour
     public bool onWallZ(GameObject o)
     {
         //raycast on all 4 corners
-        float sizeFactor = o.GetComponent<BoxCollider>().size.z * 0.25f;
-        Vector3 origin1 = o.transform.position + new Vector3(sizeFactor, sizeFactor, 0);
-        Vector3 origin2 = o.transform.position + new Vector3(sizeFactor, -sizeFactor, 0);
-        Vector3 origin3 = o.transform.position + new Vector3(-sizeFactor, sizeFactor, 0);
-        Vector3 origin4 = o.transform.position + new Vector3(-sizeFactor, -sizeFactor, 0);
+        float sizeFactor = o.GetComponent<BoxCollider>().size.x * 0.5f;
+        Vector3 position = o.transform.position;
+        position.y += 1f;
+        
+        Vector3 origin1 = position + new Vector3(sizeFactor, sizeFactor, 0);
+        Vector3 origin2 = position + new Vector3(sizeFactor, -sizeFactor, 0);
+        Vector3 origin3 = position + new Vector3(-sizeFactor, sizeFactor, 0);
+        Vector3 origin4 = position + new Vector3(-sizeFactor, -sizeFactor, 0);
         
         return Physics.Raycast(origin1, Vector3.forward, out zHit, sizeFactor)
                || Physics.Raycast(origin2, Vector3.forward, out zHit, sizeFactor)
