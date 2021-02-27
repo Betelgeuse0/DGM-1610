@@ -47,34 +47,35 @@ public class CustomPhysics : MonoBehaviour
         }
         
         float sizeFactor = o.GetComponent<BoxCollider>().size.x * 0.5f;
+        float rayDist = sizeFactor + 0.1f;
         Vector3 position = o.transform.position;
-        position.y += 1f;
+        position.y += 0.1f;
         Vector3 origin1 = position + new Vector3(0, sizeFactor, sizeFactor);
         Vector3 origin2 = position + new Vector3(0, -sizeFactor, sizeFactor);
         Vector3 origin3 = position + new Vector3(0, sizeFactor, -sizeFactor);
         Vector3 origin4 = position + new Vector3(0, -sizeFactor, -sizeFactor);
-        Debug.DrawRay(origin1, Vector3.left * sizeFactor, Color.red); 
-        Debug.DrawRay(origin2, Vector3.left * sizeFactor, Color.red); 
-        Debug.DrawRay(origin3, Vector3.left * sizeFactor, Color.red); 
-        Debug.DrawRay(origin4, Vector3.left * sizeFactor, Color.red);
-        Debug.DrawRay(origin1, Vector3.right * sizeFactor, Color.red); 
-        Debug.DrawRay(origin2, Vector3.right * sizeFactor, Color.red); 
-        Debug.DrawRay(origin3, Vector3.right * sizeFactor, Color.red); 
-        Debug.DrawRay(origin4, Vector3.right * sizeFactor, Color.red); 
+        Debug.DrawRay(origin1, Vector3.left * rayDist, Color.red); 
+        Debug.DrawRay(origin2, Vector3.left * rayDist, Color.red); 
+        Debug.DrawRay(origin3, Vector3.left * rayDist, Color.red); 
+        Debug.DrawRay(origin4, Vector3.left * rayDist, Color.red);
+        Debug.DrawRay(origin1, Vector3.right * rayDist, Color.red); 
+        Debug.DrawRay(origin2, Vector3.right * rayDist, Color.red); 
+        Debug.DrawRay(origin3, Vector3.right * rayDist, Color.red); 
+        Debug.DrawRay(origin4, Vector3.right * rayDist, Color.red); 
         
         origin1 = position + new Vector3(sizeFactor, sizeFactor, 0);
         origin2 = position + new Vector3(sizeFactor, -sizeFactor, 0);
         origin3 = position + new Vector3(-sizeFactor, sizeFactor, 0);
         origin4 = position + new Vector3(-sizeFactor, -sizeFactor, 0);
         
-        Debug.DrawRay(origin1, Vector3.back * sizeFactor, Color.red); 
-        Debug.DrawRay(origin2, Vector3.back * sizeFactor, Color.red); 
-        Debug.DrawRay(origin3, Vector3.back * sizeFactor, Color.red); 
-        Debug.DrawRay(origin4, Vector3.back * sizeFactor, Color.red); 
-        Debug.DrawRay(origin1, Vector3.forward * sizeFactor, Color.red); 
-        Debug.DrawRay(origin2, Vector3.forward * sizeFactor, Color.red); 
-        Debug.DrawRay(origin3, Vector3.forward * sizeFactor, Color.red); 
-        Debug.DrawRay(origin4, Vector3.forward * sizeFactor, Color.red); 
+        Debug.DrawRay(origin1, Vector3.back * rayDist, Color.red); 
+        Debug.DrawRay(origin2, Vector3.back * rayDist, Color.red); 
+        Debug.DrawRay(origin3, Vector3.back * rayDist, Color.red); 
+        Debug.DrawRay(origin4, Vector3.back * rayDist, Color.red); 
+        Debug.DrawRay(origin1, Vector3.forward * rayDist, Color.red); 
+        Debug.DrawRay(origin2, Vector3.forward * rayDist, Color.red); 
+        Debug.DrawRay(origin3, Vector3.forward * rayDist, Color.red); 
+        Debug.DrawRay(origin4, Vector3.forward * rayDist, Color.red); 
 
         
         if (onWallZ(o))
