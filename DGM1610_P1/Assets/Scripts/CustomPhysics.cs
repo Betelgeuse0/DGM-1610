@@ -38,6 +38,7 @@ public class CustomPhysics : MonoBehaviour
         if (OnCeiling(o) && velocity.y > 0) //onCeiling and rising
         {
             velocity.y *= -bounciness;
+            Debug.Log(yHit.collider.gameObject);
         }
         
         if (onWallX(o))
@@ -100,12 +101,14 @@ public class CustomPhysics : MonoBehaviour
     //note these functions likely only work properly if the dimensions of the box collider xyz are all the same
     public bool OnGround(GameObject o)
     {
+        //Debug.Log("on ground");
         //raycast on all 4 corners
         float sizeFactor = o.GetComponent<BoxCollider>().size.y * 0.5f;
-        Vector3 origin1 = o.transform.position + new Vector3(sizeFactor, 0, sizeFactor);
-        Vector3 origin2 = o.transform.position + new Vector3(-sizeFactor, 0, sizeFactor);
-        Vector3 origin3 = o.transform.position + new Vector3(sizeFactor, 0, -sizeFactor);
-        Vector3 origin4 = o.transform.position + new Vector3(-sizeFactor, 0, -sizeFactor);
+        Vector3 position = o.transform.position;
+        Vector3 origin1 = position + new Vector3(sizeFactor, 0, sizeFactor);
+        Vector3 origin2 = position + new Vector3(-sizeFactor, 0, sizeFactor);
+        Vector3 origin3 = position + new Vector3(sizeFactor, 0, -sizeFactor);
+        Vector3 origin4 = position + new Vector3(-sizeFactor, 0, -sizeFactor);
         return Physics.Raycast(origin1, Vector3.down, out yHit, sizeFactor, layerMask)
                || Physics.Raycast(origin2, Vector3.down, out yHit, sizeFactor, layerMask)
                || Physics.Raycast(origin3, Vector3.down, out yHit, sizeFactor, layerMask)
@@ -113,13 +116,18 @@ public class CustomPhysics : MonoBehaviour
     }
     
     public bool OnCeiling(GameObject o)
-    {
+    {        
+        //Debug.Log("on ceiling");
+
         //raycast on all 4 corners
         float sizeFactor = o.GetComponent<BoxCollider>().size.y * 0.5f;
-        Vector3 origin1 = o.transform.position + new Vector3(sizeFactor, 0, sizeFactor);
-        Vector3 origin2 = o.transform.position + new Vector3(-sizeFactor, 0, sizeFactor);
-        Vector3 origin3 = o.transform.position + new Vector3(sizeFactor, 0, -sizeFactor);
-        Vector3 origin4 = o.transform.position + new Vector3(-sizeFactor, 0, -sizeFactor);
+        Vector3 position = o.transform.position;
+        position.x -= 0.1f;
+        position.z -= 0.1f;
+        Vector3 origin1 = position + new Vector3(sizeFactor, 0, sizeFactor);
+        Vector3 origin2 = position + new Vector3(-sizeFactor, 0, sizeFactor);
+        Vector3 origin3 = position + new Vector3(sizeFactor, 0, -sizeFactor);
+        Vector3 origin4 = position + new Vector3(-sizeFactor, 0, -sizeFactor);
         return Physics.Raycast(origin1, Vector3.up, out yHit, sizeFactor + 0.8f, layerMask)
                || Physics.Raycast(origin2, Vector3.up, out yHit, sizeFactor + 0.8f, layerMask)
                || Physics.Raycast(origin3, Vector3.up, out yHit, sizeFactor + 0.8f, layerMask)
