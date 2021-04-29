@@ -7,6 +7,7 @@ public class ScriptableObjectRunner : MonoBehaviour
 {
     private FloatData floatData;
     private IntData intData;
+    private Vector3Data vecData;
     
     void Start()
     {
@@ -62,6 +63,22 @@ public class ScriptableObjectRunner : MonoBehaviour
             dataStr = intData;
             
             Debug.Log("Expected Value (222958), Value Received: " + dataStr);
+        }
+        
+        //vec data output
+        {
+            Debug.Log("*TESTING VEC DATA*");
+            
+            Vector3 data = new Vector3(0, 1, 2);
+            vecData = data;
+            
+            Debug.Log("Expected Value (0, 1, 2), Value Received: " + vecData);
+            
+            vecData = new Vector3(3, 1.5f, 1000.25f);
+            data = vecData;
+            
+            Debug.Log("Expected Value (3, 1.5, 1000.25), Value Received: " + "(" + data.x + ", " + data.y + ", " + data.z + ")");
+            
         }
     }
     
