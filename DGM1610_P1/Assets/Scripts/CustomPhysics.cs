@@ -38,7 +38,7 @@ public class CustomPhysics : MonoBehaviour
         if (OnCeiling(o) && velocity.y > 0) //onCeiling and rising
         {
             velocity.y *= -bounciness;
-            Debug.Log(yHit.collider.gameObject);
+            //Debug.Log(yHit.collider.gameObject);
         }
         
         if (onWallX(o))
